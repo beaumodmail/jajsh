@@ -15,6 +15,12 @@ export default function ShowImage() {
           alt="Uploaded Image"
           style={{ maxWidth: '100%', height: 'auto' }}
         />
+<img
+          src="IMG_2325.jpeg" // Path to the image in the public folder
+          alt="Uploaded Image"
+          style={{ maxWidth: '100%', height: 'auto' }}
+        />
+          
       </div>
     </div>
   );
