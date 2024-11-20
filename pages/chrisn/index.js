@@ -1,5 +1,4 @@
 // pages/showImage.js
-/IMG_2324.jpeg
 export default function ShowImage() {
   return (
     <div style={{ textAlign: 'center', marginTop: '20px' }}>
