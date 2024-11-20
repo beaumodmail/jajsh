@@ -1,28 +1,73 @@
-import Image from "next/image";
-
-export default function Home() {
+export default function UnderDevelopment() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+    <div style={styles.container}>
+      {/* Logo or Icon */}
+      <div style={styles.logoContainer}>
+        <span style={styles.logo}>🚧</span>
+      </div>
 
+      {/* Main Text */}
+      <h1 style={styles.title}>Under Development</h1>
+      <p style={styles.subtitle}>
+        We're working hard to bring this page to life. Please check back soon!
+      </p>
+
+      {/* Footer */}
+      <footer style={styles.footer}>
+        <p>© {new Date().getFullYear()} YourCompanyName. All rights reserved.</p>
+      </footer>
+
+      {/* Scoped Styles */}
+      <style jsx>{`
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
+
+        :global(body) {
+          margin: 0;
+          font-family: 'Inter', sans-serif;
+          background-color: #f7f7f7;
+          color: #333;
+        }
+      `}</style>
+    </div>
+  );
+}
+
+// Inline styles
+const styles = {
+  container: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    minHeight: '100vh',
+    textAlign: 'center',
+    padding: '0 20px',
+    backgroundColor: '#f7f7f7',
+  },
+  logoContainer: {
+    marginBottom: '20px',
+  },
+  logo: {
+    fontSize: '50px',
+  },
+  title: {
+    fontSize: '2.5rem',
+    fontWeight: 600,
+    margin: '10px 0',
+    color: '#333',
+  },
+  subtitle: {
+    fontSize: '1rem',
+    color: '#666',
+    maxWidth: '500px',
+    margin: '0 auto 40px',
+  },
+  footer: {
+    fontSize: '0.875rem',
+    color: '#aaa',
+    marginTop: '40px',
+  },
+};
         <div className="flex gap-4 items-center flex-col sm:flex-row">
           <a
             className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
