@@ -10,7 +10,7 @@ export default function ShowImage() {
         alt="Don the Hairdresser"
         style={{ maxWidth: '100%', height: 'auto' }}
       />
-
+     <h2>AI VERSION OF ORIGINAL; ORIGINAL ABOVE:</h2>
         <img
         src="/IMG_2324.jpeg"  // Path to the image in the public folder
         alt="Dom the Hairdresser AI"
