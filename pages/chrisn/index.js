@@ -16,6 +16,12 @@ export default function ShowImage() {
           alt="Dom the Hairdresser AI"
           style={{ maxWidth: '100%', height: 'auto' }}
         />
+          <h2>ASTRO DOM</h2>
+          <img
+          src="/DomAstro.jpg" // Path to the image in the public folder
+          alt="Dom the Hairdresser AI"
+          style={{ maxWidth: '100%', height: 'auto' }}
+        />
       </div>
     </div>
   );
