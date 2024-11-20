@@ -6,7 +6,7 @@ export default function ShowImage() {
         <h2>WARNING: All image rights are from the owner.</h2>
         <p>Image Owner: Beau</p>
         <img
-          src="/LOOP-5.jpg"  {/* Path to the image in the public folder */}
+          src="/LOOP-5.jpg" // Path to the image in the public folder
           alt="Uploaded Image"
           style={{ maxWidth: '100%', height: 'auto' }}
         />
