@@ -1,5 +1,5 @@
 // pages/showImage.js
-
+/IMG_2324.jpeg
 export default function ShowImage() {
   return (
     <div style={{ textAlign: 'center', marginTop: '20px' }}>
@@ -9,6 +9,12 @@ export default function ShowImage() {
       <img
         src="/IMG_6226.jpeg"  // Path to the image in the public folder
         alt="Don the Hairdresser"
+        style={{ maxWidth: '100%', height: 'auto' }}
+      />
+
+        <img
+        src="/IMG_2324.jpeg"  // Path to the image in the public folder
+        alt="Dom the Hairdresser AI"
         style={{ maxWidth: '100%', height: 'auto' }}
       />
     </div>
