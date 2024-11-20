@@ -7,6 +7,6 @@ export default function ShowImage() {
         <p>Image Owner: Beau</p>
         <img
           src="/LOOP-5.jpg" // Path to the image in the public folder
-          alt="Pop Steve"
+          alt=""
           style={{ maxWidth: '100%', height: 'auto' }}
         />
