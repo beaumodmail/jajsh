@@ -1,0 +1,14 @@
+// pages/showImage.js
+
+export default function ShowImage() {
+  return (
+    <div style={{ textAlign: 'center', marginTop: '20px' }}>
+      <h1>DOM THE HAIRDRESSER ORIGINAL:</h1>
+      <img
+        src="/IMG_6226.jpeg"  // Path to the image in the public folder
+        alt="Hairdresser named dom."
+        style={{ maxWidth: '100%', height: 'auto' }}
+      />
+    </div>
+  );
+}
