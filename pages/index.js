@@ -12,7 +12,7 @@ export default function Home() {
       <div style={styles.container}>
         <h1 style={styles.heading}>🚧 Under Development 🚧</h1>
         <p style={styles.text}>
-          We're working hard to bring this page to life. Check back soon!
+          We&apos;re working hard to bring this page to life. Check back soon!
         </p>
         <p style={styles.text}>
           In the meantime, feel free to <a style={styles.link} href="mailto:support@example.com">contact us</a> for any questions.
