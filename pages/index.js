@@ -7,6 +7,7 @@ export default function Home() {
         <title>Under Development</title>
         <meta name="description" content="This page is currently under development." />
         <link rel="icon" href="/favicon.ico" />
+    <style>{`body { font-family: Arial, sans-serif; }`}</style>
       </Head>
 
       <div style={styles.container}>
@@ -32,6 +33,7 @@ const styles = {
     backgroundColor: '#f7f9fc',
     color: '#333',
     textAlign: 'center',
+    
   },
   heading: {
     fontSize: '2.5rem',
