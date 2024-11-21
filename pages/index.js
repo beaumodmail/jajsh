@@ -15,7 +15,7 @@ export default function Home() {
           We&apos;re working hard to bring this page to life. Check back soon!
         </p>
         <p style={styles.text}>
-          In the meantime, feel free to <a style={styles.link} href="mailto:support@example.com">contact us</a> for any questions.
+          In the meantime, feel free to <a style={styles.link} href="mailto:support@jolead.co">contact us</a> for any questions.
         </p>
       </div>
     </>
