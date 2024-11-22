@@ -18,6 +18,7 @@ export default function Home() {
         <header style={styles.header}>
           <h1 style={styles.title}>Chris File Upload</h1>
           <h2 style={styles.subheading}>The File Upload Site</h2>
+            <h2 style={styles.subheading}>NEW PAGE: CHRISA</h2>
         </header>
         <main style={styles.main}>
           <p style={styles.text}>
