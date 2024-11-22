@@ -11,6 +11,11 @@ export default function ShowImage() {
           alt="Tristan"
           style={{ maxWidth: '100%', height: 'auto' }}
         />
+          <img
+          src="/TRISTANT.png" // Ensure the image file name and extension match
+          alt="Tristan"
+          style={{ maxWidth: '100%', height: 'auto' }}
+        />
       </div>
     </div>
   );
