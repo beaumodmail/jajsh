@@ -5,9 +5,13 @@ export default function ShowImage() {
         <h1>FILE UPLOAD</h1>
         <h2>WARNING: All image rights are from the owner.</h2>
         <p>Image Owner: Tristan</p>
-  <h5>Western Tristan, AI used!</h5>
+        <h5>Western Tristan, AI used!</h5>
         <img
-          src="/Tristan-AI" // Path to the image in the public folder
+          src="/Tristan-AI.jpg" // Ensure the image file name and extension match
           alt="Tristan"
           style={{ maxWidth: '100%', height: 'auto' }}
         />
+      </div>
+    </div>
+  );
+}
