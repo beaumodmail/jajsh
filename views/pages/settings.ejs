@@ -1,0 +1,705 @@
+<%
+  const {
+    profilePhoto: {
+      url: profilePhotoURL
+    } = {},
+    bannerImage: {
+      url: bannerImageURL
+    } = {},
+    name,
+    username,
+    id,
+    emailVerified,
+    blogPublished,
+    commentsWritten,
+    createdAt,
+    IsVerified,
+    title,
+    email,
+    totalViews,
+    totalReactions,
+    content,
+    blogs,
+    bio,
+    theme,
+    tfa,
+    comments
+  } = locals.currentUser;
+
+  const compressedProfilePhotoURL = profilePhotoURL?.replace('upload/', 'upload/w_200,h_200,c_auto/q_auto/f_auto/');
+  const compressedBannerImageURL = bannerImageURL?.replace('upload/', 'upload/w_1000,h_200,c_auto/q_auto/f_auto/');
+%>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('../layouts/head', { title: 'Settings • CYC Blog' }) %>
+  <script src="/js/script.js" defer></script>
+  <script type="module" src="/js/settings.js"></script>
+</head>
+<body>
+
+  <%- include('../partials/top_app_bar') %>
+
+  <main class="main">
+    <article class="page settings-page">
+      <div class="container">
+
+        <h2 style="margin-bottom: 12px;" class="headline-small page-title text-on-surface">
+          Settings
+        </h2>
+     
+        <div class="spacer3"></div>
+     
+        <div class="search-bar">
+          <input spellcheck="false" type="text" class="search-input" placeholder="Search Settings" />
+          <span class="searchbar-icon material-symbols-rounded">search</span>
+          <span class="clear-icon material-symbols-rounded" aria-hidden="true">close</span>
+        </div>
+        
+        <div class="no-results" id="no-results-message">
+          <h1 class="card-title title-large text-on-surface">
+            <b style="display: block; max-width: 100%; width: 100%; white-space: normal; overflow-wrap: break-word; line-height: 1.3; margin-left: 8px;  -webkit-font-smoothing: antialiased;">
+                No results found
+            </b>
+        </h1>
+        <div class="spacer2"></div>
+        <div class="spacer2"></div>
+  
+        <p style="margin-left: 8px;" class="body-medium text-on-surface-variant">
+          We couldn't find any results matching your search. Please try again.
+        </p>
+        </div>  
+
+        <div class="settings-wrapper">
+          <div class="settings-card" id="account-overview">
+            <form class="settings-form" data-basic-info-form>
+              <div class="title-wrapper">
+                <h3 class="headline-small text-on-surface">
+                  Basic Information
+                </h3>
+                <button type="submit" class="btn filled-tonal" data-basic-info-submit style="border-radius: 8px;">
+                  <p class="label-large">Save</p>
+                  <div class="state-layer"></div>
+                </button>
+              </div>
+              <div class="divider2"></div>
+              <div class="spacer5-additional-settings-page"></div>
+              <div class="spacer3"></div>
+
+              <p class="body-large text-on-surface-variant">
+                Picture
+              </p>
+              <div class="spacer2"></div>
+
+              <p style="line-height: 1.8;" class="body-medium text-on-surface-variant">
+                Use a profile picture to make your profile stand out. Please use an image that is <b>500 x 500 pixels</b> and 3MB or less.
+              </p>
+              <div class="spacer3"></div>
+              <div class="image-field-wrapper avatar-image-field">
+                <label for="profilePhoto" class="label label-large text-on-surface-variant">
+                  <input type="file" name="profilePhoto" id="profilePhoto" accept="image/png, image/jpeg, image/jpg" data-image-field>
+                  <span class="material-symbols-rounded leading-icon">cloud_upload</span>
+                  Upload photo
+                </label>
+                
+                <% if (compressedProfilePhotoURL) { %>
+                  <div class="image-preview show" data-image-preview>
+                    <img draggable="false" src="<%=compressedProfilePhotoURL%>" width="200" height="200" alt="<%=name%>" loading="lazy" class="img-cover">
+                  </div>
+                <% } else { %>
+                  <div class="image-preview" data-image-preview></div>
+                <% } %>
+                <button type="button" class="icon-btn filled-tonal" title="Remove picture" data-image-preview-clear style="background-color: var(--tooltip);">
+                  <span class="material-symbols-rounded">delete</span>
+                  <div class="state-layer"></div>
+                </button>
+              </div>
+              <div class="spacer3"></div>
+              <div class="spacer3"></div>
+
+              <p class="body-large text-on-surface-variant">
+                Banner
+              </p>
+              <div class="spacer2"></div>
+
+              <p style="line-height: 1.8;" class="body-medium text-on-surface-variant">
+                Make your profile stand out even more! Please use an image that is <b>1200 x 300 pixels</b> and 5.2MB or less.
+              </p>
+              <div class="spacer2"></div>
+              <div class="image-field-wrapper banner-image-field">
+                <label for="bannerImage" class="label label-large text-on-surface-variant">
+                  <input type="file" name="bannerImage" id="bannerImage" accept="image/png, image/jpeg, image/jpg" data-banner-field>
+                  <span class="material-symbols-rounded leading-icon">cloud_upload</span>
+                  Upload banner
+                </label>
+                
+                <% if (compressedBannerImageURL) { %>
+                  <div class="image-preview show" data-banner-preview>
+                    <img draggable="false" src="<%=compressedBannerImageURL%>" width="200" height="200" alt="<%=name%>" loading="lazy" class="img-cover">
+                  </div>
+                <% } else { %>
+                  <div class="image-preview" data-banner-preview></div>
+                <% } %>
+                <button type="button" class="icon-btn filled-tonal" title="Remove Banner" data-banner-preview-clear style="background-color: var(--tooltip); margin-top: 6px; margin-right: 5px;">
+                  <span class="material-symbols-rounded">delete</span>
+                  <div class="state-layer"></div>
+                </button>
+              </div>
+              
+              <div class="wrapper">
+                <div class="text-field-wrapper">
+                  <label for="name" class="label body-large">Display Name</label>
+                  <input type="text" name="name" id="name" autocomplete="name" placeholder=" " maxlength="32" value="<%=name%>" required class="body-large text-field" spellcheck="true" 
+                  oninput="updateCharacterCount('name', 'nameCharCount')" 
+                  onfocus="showCharCount('nameCharCount')" 
+                  onblur="hideCharCount('nameCharCount')">
+                  <div id="nameCharCount" class="char-count" style="font-size: 12px; position: absolute; right: 10px; bottom: 5px; color: gray; display: none;">0 / 32</div>
+                </div>
+
+                <div class="text-field-wrapper">
+                  <label for="username" class="label body-large">Username</label>
+                  <input type="text" name="username" id="username" autocomplete="username" placeholder=" " maxlength="32" value="<%=username%>" required class="body-large text-field" spellcheck="false" 
+                  oninput="updateCharacterCount('username', 'usernameCharCount')" 
+                  onfocus="showCharCount('usernameCharCount')" 
+                  onblur="hideCharCount('usernameCharCount')">
+                  <div id="usernameCharCount" class="char-count" style="font-size: 12px; position: absolute; right: 10px; bottom: 5px; color: gray; display: none;">0 / 32</div>
+                  </div>
+              </div>
+
+              <div spellcheck="false" class="text-field-wrapper">
+                <label for="email" class="label body-large">Email address</label>
+                <input type="email" name="email" id="email" autocomplete="email" placeholder=" " value="<%=email%>" required class="body-large text-field">
+              </div>
+
+              <div class="text-field-wrapper" style="position: relative;">
+                <label for="bio" class="label body-large">Bio</label>
+                <textarea name="bio" id="bio" placeholder=" " maxlength="200" rows="3" class="body-large text-field" style="resize: none !important; width: 100%; line-height: 1.7;" 
+                oninput="updateCharacterCount('bio', 'bioCharCount')" 
+                onfocus="showCharCount('bioCharCount')" 
+                onblur="hideCharCount('bioCharCount')"><%=bio%></textarea>
+                <div id="bioCharCount" class="char-count" style="font-size: 12px; position: absolute; right: 10px; bottom: 5px; color: gray; display: none;">0 / 200</div>
+            </div>
+          
+              <div class="text-field-wrapper" style="height: 1px; opacity: 0; overflow: hidden; display: none;">
+                <label for="theme" class="label body-large">Dark Mode / Light Mode</label>
+                <select name="theme" id="theme" class="body-large text-field">
+                  <option value="false" <%= theme === false ? 'selected' : '' %>>Dark Mode</option>
+                  <option value="true" <%= theme === true ? 'selected' : '' %>>Light Mode</option>
+                </select>
+              </div>
+            </form>
+          </div>
+
+          <div class="spacer5"></div>
+
+          <div class="settings-card" id="danger-zone">
+            <h3 class="headline-small">
+              Security
+            </h3>
+            <div class="spacer5-additional-settings-page"></div>
+            <div class="divider2"></div>
+            <div class="spacer5-additional-settings-page"></div>
+            <div class="spacer2"></div>
+            <div class="spacer2"></div>
+
+            <div style="display: flex; gap: 10px;">
+              <% if (tfa) { %>
+                <button class="btn btn-fill error" style="border-radius: 8px; display: inline-block;" data-account-disable2fa>
+                  <p class="label-large" style="font-weight: 600;">Disable 2FA</p>
+                  <div class="state-layer"></div>
+                </button>
+              <% } else { %>
+                <button class="btn btn-fill" style="border-radius: 8px; display: inline-block; background-color: var(--primary);" type="button" data-account-enable2fa>
+                  <p class="label-large" style="font-weight: 600; color: var(--surface) !important;">Enable 2FA</p>
+                  <div class="state-layer"></div>
+                </button>
+              <% } %>
+              <button class="btn btn-fill error" style="border-radius: 8px; display: inline-block;" id="logoutButton">
+                <p title="Log out of all sessions" class="label-large" style="font-weight: 600;">End all sessions</p>
+                <div class="state-layer"></div>
+              </button>
+              <div class="delete-account-container" id="Sign_Out_All_Sessions">
+                <div class="delete-account-content">
+                  <div class="delete-account-message">Do you want to end all of your sessions?
+                  </div>
+                  <p class="body-medium text-on-surface-variant">
+                    You're about to end all of your sessions that you're currently logged in, and you'll need to log back in again.
+                  </p>
+                  <div class="spacer3"></div>
+                  <button class="delete-account-button delete-account-confirm"  onclick="handleClick_Confirm_Btn_Logout_btn(this)" data-account-globalLogout id="confirmButton">
+                    <%= (tfa) ? "Next" : "Confirm" %>
+                  </button>
+            
+                  <button class="delete-account-button delete-account-cancel" id="cancelButton">Cancel</button>
+                </div>
+              </div>
+            </div>
+          </div>
+               
+          <div class="spacer5"></div>
+
+          <div class="settings-card" id="customisation-data">
+            <h3 class="headline-small text-on-surface">
+              Visual Appearance
+          </h3>
+          <div class="spacer5-additional-settings-page"></div>
+          <div class="divider2"></div>
+          <div class="spacer5-additional-settings-page"></div>
+          <div class="color-options" style="display: flex; flex-wrap: wrap; gap: 15px; justify-content: flex-start; padding: 10px;">
+            <span title="<%= theme === true ? 'Black' : 'White' %> (Default) " class="color-button">
+            <button 
+                class="color-btn primary-color" 
+                style="background-color: var(--primary);" 
+                aria-label="Primary Color">
+                <% if (themeColor === 0) { %>
+                    <span class="material-symbols-rounded">check</span>
+                <% } %>
+            </button>
+        </span>
+        <span title="Orange" class="color-button">
+            <button 
+                class="color-btn blue-color" 
+                style="background-color: #ee6922;" 
+                aria-label="Orange">
+                <% if (themeColor === 1) { %>
+                    <span class="material-symbols-rounded">check</span>
+                <% } %>
+            </button>
+        </span>
+        <span title="Green" class="color-button">
+            <button 
+                class="color-btn teal-color" 
+                style="background-color: #43d170;" 
+                aria-label="Green">
+                <% if (themeColor === 2) { %>
+                    <span class="material-symbols-rounded">check</span>
+                <% } %>
+            </button>
+        </span>
+        <span title="Dark Blue" class="color-button">
+            <button 
+                class="color-btn dark-blue-color" 
+                style="background-color: #0b91ff;" 
+                aria-label="Dark Blue">
+                <% if (themeColor === 3) { %>
+                    <span class="material-symbols-rounded">check</span>
+                <% } %>
+            </button>
+        </span>
+        <span title="Pink" class="color-button">
+            <button 
+                class="color-btn pink-color" 
+                style="background-color: #ff61b5;" 
+                aria-label="Pink">
+                <% if (themeColor === 4) { %>
+                    <span class="material-symbols-rounded">check</span>
+                <% } %>
+            </button>
+        </span>
+        <span title="Lime Green" class="color-button">
+            <button 
+                class="color-btn lime-green-color" 
+                style="background-color: var(--lime-green);" 
+                aria-label="Lime Green">
+                <% if (themeColor === 5) { %>
+                    <span class="material-symbols-rounded">check</span>
+                <% } %>
+            </button>
+        </span>
+        <span title="Purple" class="color-button">
+            <button 
+                class="color-btn purple-color" 
+                style="background-color: #9080ff;" 
+                aria-label="Purple">
+                <% if (themeColor === 6) { %>
+                    <span class="material-symbols-rounded">check</span>
+                <% } %>
+            </button>
+        </span>
+        <span title="Crimson Red" class="color-button">
+            <button 
+                class="color-btn crimson-red-color" 
+                style="background-color: #e2002c;" 
+                aria-label="Crimson Red">
+                <% if (themeColor === 7) { %>
+                    <span class="material-symbols-rounded">check</span>
+                <% } %>
+            </button>
+        </span>
+    </div>
+   
+           <div class="spacer5-additional-settings-page"></div>
+           <div class="spacer5-additional-settings-page"></div>
+            
+              <div class="text-field-wrapper" style="margin-left: -5px; user-select: none;">
+                <label for="theme" class="label body-large">Dark Mode / Light Mode</label>
+                <select name="theme" id="theme" class="body-large text-field">
+                  <option value="false" <%= theme === false ? 'selected' : '' %>>Dark Mode</option>
+                  <option value="true" <%= theme === true ? 'selected' : '' %>>Light Mode</option>
+                </select>
+              </div>
+              <div class="spacer5-additional-settings-page"></div>
+              <div class="spacer5-additional-settings-page"></div>
+
+              <div class="text-field-wrapper" style="margin-left: -5px; user-select: none;">
+                <label for="Dashboard_different_analytics_icons" class="label body-large">Dashboard Analytics Icon Style</label>
+                <select name="Font" id="Dashboard_different_analytics_icons" class="body-large text-field">
+                  <option value="white_icons-dashboard-analytics-page"><%= theme === true ? 'Solid Black (Default)' : 'Solid White (Default)' %></option>
+                  <option value="pastel_icons-dashboard-analytics-page">Pastel</option>
+                  <option value="multi-colour-dashboard-box-page">Multi Colour</option>
+                  <option value="multi-colour-with-background-only-dashboard-box-page">Multi Color With Background Only</option>
+                </select>
+              </div>
+              
+              <div class="spacer5-additional-settings-page"></div>
+              <div class="spacer5-additional-settings-page"></div>
+
+              <div class="show-more-container">
+                <button class="show-more-btn settings-page-collapse">Show more customisation</button>
+                <div class="custom-sections">
+                  <div class="text-field-wrapper" style="margin-left: -5px; user-select: none;">
+                    <label for="comments_layout_blog_detail" class="label body-large">Comments Layout</label>
+                    <select name="Font" id="comments_layout_blog_detail" class="body-large text-field">
+                      <option value="show_dividers_comments_layout">Show Dividers (Default) </option>
+                      <option value="no_dividers_comments_layout">No Dividers</option>
+                    </select>
+                  </div>
+              
+                  <div class="spacer5-additional-settings-page"></div>
+                  <div class="spacer5-additional-settings-page"></div>
+              
+                  <div class="text-field-wrapper" style="margin-left: -5px; user-select: none;">
+                    <label for="Font_Selector_For_post_only" class="label body-large">Post Content Font</label>
+                    <select name="Font" id="Font_Selector_For_post_only" class="body-large text-field">
+                      <option style="font-family: var(--font-primary);" value="Inter">Inter (Default)</option>
+                      <option style="font-family: Arial;" value="Arial">Arial</option>
+                      <option style="font-family: monospace;" value="Monospace">Monospace</option>
+                      <option style="font-family: Verdana;" value="Verdana">Verdana</option>
+                      <option style="font-family: Georgia;" value="Georgia">Georgia</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="spacer5-additional-settings-page"></div>
+
+              <p style="font-size: 15px;" class="body-large text-on-surface-variant">
+              <b>Dark mode</b> and <b>theme colour</b> will sync across all devices.
+              </p>
+                 
+                <style>
+                   select {
+              background: var(--background);
+              margin: 1px;
+              width: calc(100% - 2px) !important;
+              height: calc(100% - 2px) !important;
+              appearance: none;
+              border: 2px solid transparent;
+           }
+
+        select:focus {
+         border: 2px solid var(--secondary-container);
+         outline: none;
+      }
+
+      option {
+  background-color: var(--surface-container-highest);
+  font-family: var(--font-primary);
+  color: var(--primary);
+  display: grid;
+  font-size: 16px;
+}
+
+.show-more-btn {
+  color: var(--primary);
+  background-color: var(--surface-container-highest);
+  border: 1px solid var(--tab-divider);
+  border-radius: 5px;
+  padding: 10px;
+  width: 25%;
+  margin-left: -4px;
+  text-align: center;
+  cursor: pointer;
+  font-size: 16px;
+  transition: opacity 0.3s ease, transform 0.3s ease !important;
+}
+
+.show-more-btn:active {
+  transform: scale(0.95);
+}
+
+@media (max-width: 768px) {
+  .show-more-btn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .show-more-btn {
+    width: 100%;
+  }
+}
+
+.show-more-btn:hover {
+ opacity: 0.7;
+}
+
+.custom-sections {
+  display: none;
+  margin-top: 20px;
+}
+
+.custom-sections.active {
+  display: block;
+  animation: slideIn 0.3s ease-in-out;
+}
+
+@keyframes slideIn {
+  from {
+    max-height: 0;
+    opacity: 0;
+  }
+  to {
+    max-height: 1000px;
+    opacity: 1;
+  }
+}
+
+@keyframes slideOut {
+  from {
+    max-height: 1000px;
+    opacity: 1;
+  }
+  to {
+    max-height: 0;
+    opacity: 0;
+  }
+}
+
+.custom-sections.collapsed {
+  animation: slideOut 0.3s ease-in-out;
+  display: block;
+}
+
+.settings-page-collapse {
+  transition: all 0.3s ease;
+}
+                </style>
+        
+        
+            <div class="state-layer"></div>
+        </div>
+        
+        
+         <div class="spacer5"></div>
+
+          <div class="settings-card" id="download-data">
+            <h3 class="headline-small text-on-surface">
+              Data Export
+            </h3>
+            <div class="spacer5-additional-settings-page"></div>
+            <div class="divider2"></div>
+            <div class="spacer5-additional-settings-page"></div>
+            <p style="line-height: 1.8;" class="body-large text-on-surface-variant">
+              Download a JSON file containing your data including your profile picture, email address, username and more associated with this account.
+            </p>
+            <div class="spacer5-additional-settings-page"></div>
+            <button type="button" class="btn filled-tonal" id="download-settings" style="border-radius: 8px;" data-download-settings-btn>
+              <span class="material-symbols-rounded" aria-hidden="true">folder</span>
+              <p id="download-label" class="label-large">Download</p>
+              <div class="state-layer"></div>
+            </button>
+          </div>
+
+         <div class="spacer5"></div>
+
+          <div class="settings-card" id="change-password">
+            <form class="settings-form" data-password-form>
+              <div class="title-wrapper">
+                <h3 class="headline-small text-on-surface">
+                  Change password
+                </h3>
+                <button type="submit" class="btn filled-tonal" data-password-submit style="border-radius: 8px;">
+                  <p class="label-large">Save</p>
+                  <div class="state-layer"></div>
+                </button>
+              </div>
+              <div class="divider2"></div>
+              <div class="spacer2"></div>
+              <div class="text-field-wrapper">
+                <label for="old-password" class="label body-large">Old password</label>
+                <input type="password" name="old_password" id="old-password" autocomplete="current-password" placeholder=" " required class="body-large text-field">
+              </div>
+              <div class="text-field-wrapper">
+                <label for="new-password" class="label body-large">New password</label>
+                <input type="password" name="password" id="new-password" autocomplete="new-password" placeholder=" " required minlength="8" class="body-large text-field">
+              </div>
+              <div class="text-field-wrapper">
+                <label for="confirm-password" class="label body-large">Confirm password</label>
+                <input type="password" name="confirm_password" id="confirm-password" autocomplete="new-password" placeholder=" " required class="body-large text-field">
+              </div>
+              <% if (tfa) { %>
+              <div class="text-field-wrapper">
+                <label for="code" class="label body-large">Enter 6-digit code (2FA)</label>
+                <input type="text" name="code" id="code" placeholder=" " required class="body-large text-field">
+              </div>
+              <% } %>
+            </form>
+          </div>
+
+          <div class="spacer5"></div>
+
+          <div class="settings-card" id="danger-zone">
+            <h3 class="headline-small text-error">
+              Danger Zone
+            </h3>
+            <div class="spacer5-additional-settings-page"></div>
+            <div class="divider2"></div>
+            <div class="spacer2"></div>
+            <p style="line-height: 1.8;" class="body-large text-on-surface-variant card-text">
+              Permanently delete your account and all associated data. This action <b>cannot</b> be undone.
+            </p>
+            <button class="btn btn-fill error" style="border-radius: 8px;" data-account-delete>
+              <p class="label-large" style="font-weight: 600;">Delete account</p>
+              <div class="state-layer"></div>
+            </button>
+          </div>
+
+        </div>
+
+      </div>
+    </article>
+
+  </main>
+
+  <%- include('../layouts/footer') %>
+
+  <div class="snackbar-wrapper" data-snackbar-wrapper></div>
+
+  <script>
+document.addEventListener('DOMContentLoaded', () => {
+  const searchInput = document.querySelector('.search-input');
+  const searchIcon = document.querySelector('.searchbar-icon');
+  const clearIcon = document.querySelector('.clear-icon');
+  const settingsCards = document.querySelectorAll('.settings-card');
+  const noResultsMessage = document.querySelector('#no-results-message');
+
+  updateIcons();
+
+  searchInput.addEventListener('input', () => {
+    updateIcons();
+    const spacer5Elements = document.querySelectorAll('.spacer5');
+
+    if (searchInput.value.trim() !== '') {
+      spacer5Elements.forEach((element) => {
+        element.classList.remove('spacer5');
+        element.classList.add('spacer2-settings-page');
+      });
+    } else {
+      const spacer2Elements = document.querySelectorAll('.spacer2-settings-page');
+      spacer2Elements.forEach((element) => {
+        element.classList.remove('spacer2-settings-page');
+        element.classList.add('spacer5');
+      });
+    }
+  });
+
+  clearIcon.addEventListener('click', () => {
+    searchInput.value = '';
+    updateIcons();
+
+    const spacer2Elements = document.querySelectorAll('.spacer2-settings-page');
+    spacer2Elements.forEach((element) => {
+      element.classList.remove('spacer2-settings-page');
+      element.classList.add('spacer5');
+    });
+  });
+
+  function updateIcons() {
+    const searchTerm = searchInput.value.trim().toLowerCase();
+    let resultsFound = false;
+
+    settingsCards.forEach((card) => {
+      const cardText = card.textContent.toLowerCase();
+      if (cardText.includes(searchTerm)) {
+        card.style.display = '';
+        resultsFound = true;
+      } else {
+        card.style.display = 'none';
+      }
+    });
+
+    noResultsMessage.style.display = resultsFound ? 'none' : 'block';
+
+    if (searchTerm) {
+      clearIcon.style.display = 'block';
+      searchIcon.style.opacity = '0';
+    } else {
+      clearIcon.style.display = 'none';
+      searchIcon.style.opacity = '1';
+    }
+  }
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+  const showMoreButton = document.querySelector('.show-more-btn');
+  const customSections = document.querySelector('.custom-sections');
+
+  showMoreButton.addEventListener('click', () => {
+    const isActive = customSections.classList.contains('active');
+
+    if (isActive) {
+      customSections.classList.add('collapsed');
+      customSections.classList.remove('active');
+      showMoreButton.textContent = 'Show more customisation';
+      setTimeout(() => {
+        customSections.style.display = 'none';
+      }, 300);
+    } else {
+      customSections.style.display = 'block';
+      setTimeout(() => {
+        customSections.classList.remove('collapsed');
+        customSections.classList.add('active');
+      }, 10);
+      showMoreButton.textContent = 'Show less customisation';
+    }
+  });
+});
+
+    function updateCharacterCount(fieldId, countId) {
+      const textarea = document.getElementById(fieldId);
+      const charCount = document.getElementById(countId);
+      charCount.textContent = `${textarea.value.length} / ${textarea.maxLength}`;
+    }
+    
+    function showCharCount(countId) {
+      const charCount = document.getElementById(countId);
+      charCount.style.display = 'block';
+    }
+    
+    function hideCharCount(countId) {
+      const charCount = document.getElementById(countId);
+      charCount.style.display = 'none';
+    }
+    
+    document.addEventListener('DOMContentLoaded', function() {
+      updateCharacterCount('name', 'nameCharCount');
+      updateCharacterCount('username', 'usernameCharCount');
+      updateCharacterCount('bio', 'bioCharCount');
+    });
+
+    function handleClick_Confirm_Btn_Logout_btn(button) {
+     if (button.innerText.trim() !== "Next") {
+      button.innerText = "Please wait..";
+      button.style.cursor = "not-allowed";
+      button.style.opacity = "0.6";
+      button.style.pointerEvents = "none";
+      }
+   }
+    </script>
+    <script>
+      var tfa = <%= (tfa) ? true : false %>;
+      var username = '<%= username %>';
+    </script>
+    </body>
+    </html>
